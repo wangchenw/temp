@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.utils.operatemysql.mapper.DescriptionMapper">
+
+    <resultMap id="BaseResultMap" type="com.utils.operatemysql.entity.Description">
+            <result property="description" column="description" jdbcType="VARCHAR"/>
+            <result property="keyword" column="keyword" jdbcType="VARCHAR"/>
+            <result property="title" column="title" jdbcType="VARCHAR"/>
+            <result property="url" column="url" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        description,keyword,title,
+        url
+    </sql>
+</mapper>
