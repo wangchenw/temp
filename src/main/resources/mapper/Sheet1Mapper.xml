@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.utils.operatemysql.mapper.Sheet1Mapper">
+
+    <resultMap id="BaseResultMap" type="com.utils.operatemysql.entity.Sheet1">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="characteristic" column="characteristic" jdbcType="VARCHAR"/>
+            <result property="platform" column="platform" jdbcType="VARCHAR"/>
+            <result property="ip" column="ip" jdbcType="VARCHAR"/>
+            <result property="port" column="port" jdbcType="INTEGER"/>
+            <result property="property" column="property" jdbcType="VARCHAR"/>
+            <result property="country" column="country" jdbcType="VARCHAR"/>
+            <result property="asMassage" column="as_massage" jdbcType="VARCHAR"/>
+            <result property="whoisMessage" column="whois_message" jdbcType="VARCHAR"/>
+            <result property="ipuser" column="ipuser" jdbcType="VARCHAR"/>
+            <result property="certificationUrl" column="certification_url" jdbcType="VARCHAR"/>
+            <result property="screenshot" column="screenshot" jdbcType="VARCHAR"/>
+            <result property="description" column="description" jdbcType="VARCHAR"/>
+            <result property="translation" column="translation" jdbcType="VARCHAR"/>
+            <result property="version" column="version" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,characteristic,platform,
+        ip,port,property,
+        country,as_massage,whois_message,
+        ipuser,certification_url,screenshot,
+        description,translation,version
+    </sql>
+</mapper>

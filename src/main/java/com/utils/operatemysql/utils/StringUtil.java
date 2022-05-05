@@ -1,5 +1,8 @@
 package com.utils.operatemysql.utils;
 
+import java.io.*;
+import java.util.*;
+
 /**
  * @Author: WangChen
  * @Description:
@@ -206,4 +209,69 @@ public class StringUtil {
         return false;
     }
 
+    public static String getMinValue(List<String> arrayList) {
+        //定义一个map来存截取的数据
+        HashMap<Integer,String> hashMap=new  HashMap<Integer,String>();
+        for (String string : arrayList) {
+            hashMap.put(string.length(), string);
+        }
+        //获取所有的key值
+        Set<Integer> set = hashMap.keySet();
+        Object[] obj = set.toArray();
+        //排序
+        Arrays.sort(obj);
+        //最小的Value值的变量
+        String  resultValue = "";
+        //根据key ,找Value
+        for(Map.Entry<Integer,String> str : hashMap.entrySet()){
+            if(obj[0].equals(str.getKey())){
+                resultValue = str.getValue();
+            }
+        }
+        return resultValue ;
+    }
+    public static String getMaxValue(List<String> arrayList) {
+        //定义一个map来存截取的数据
+        HashMap<Integer,String> hashMap=new  HashMap<Integer,String>();
+        for (String string : arrayList) {
+            hashMap.put(string.length(), string);
+        }
+        //获取所有的key值
+        Set<Integer> set = hashMap.keySet();
+        Object[] obj = set.toArray();
+        //排序
+        Arrays.sort(obj);
+        //最小的Value值的变量
+        String  resultValue = "";
+        //根据key ,找Value
+        for(Map.Entry<Integer,String> str : hashMap.entrySet()){
+            if(obj[arrayList.size()-1].equals(str.getKey())){
+                resultValue = str.getValue();
+            }
+        }
+        return resultValue ;
+    }
+
+    public static String toHtmlString(File file) {
+        // 获取HTML文件流
+        StringBuffer htmlSb = new StringBuffer();
+        try {
+            BufferedReader br = new BufferedReader(new InputStreamReader(
+                    new FileInputStream(file), "utf-8"));
+            while (br.ready()) {
+                htmlSb.append(br.readLine());
+            }
+            br.close();
+            // 删除临时文件
+            //file.delete();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        // HTML文件字符串
+        String htmlStr = htmlSb.toString();
+        // 返回经过清洁的html文本
+        return htmlStr;
+    }
 }

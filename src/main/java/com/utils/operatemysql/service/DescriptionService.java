@@ -13,5 +13,7 @@ import java.io.IOException;
 */
 public interface DescriptionService extends IService<Description> {
 
-    void spiderMysql() throws IOException;
+    void spiderMysql( String path) throws IOException;
+
+    void insert(String s);
 }

@@ -1,9 +1,10 @@
 package com.utils.operatemysql.controller;
 
 import com.utils.operatemysql.service.DescriptionService;
-import com.utils.operatemysql.utils.Result;
 import lombok.AllArgsConstructor;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
@@ -21,10 +22,16 @@ public class TestController {
 
     //解析json文件存储MySQL数据库
     @RequestMapping("spider")
-    public void saveMysql() throws IOException {
-        descriptionService.spiderMysql();
+    public void saveMysql(@RequestParam String path) throws IOException {
+        descriptionService.spiderMysql(path);
     }
 
+    @RequestMapping("insert")
+    public void insertMysql(String s) {
+        descriptionService.insert("C:\\Users\\W\\Documents\\WeChat Files\\wxid_dd2l39sslfud22\\FileStorage\\File\\2022-04\\747v0.2\\747v0.2.xlsx");
+        // new MySQLExcelUtil().importFromExcelToMySQL("C:\\Users\\W\\Documents\\WeChat Files\\wxid_dd2l39sslfud22\\FileStorage\\File\\2022-04\\747v0.2\\747v0.2.xlsx");
+
+    }
 
 
 }
