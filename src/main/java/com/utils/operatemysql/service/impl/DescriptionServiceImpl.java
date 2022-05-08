@@ -153,7 +153,9 @@ public class DescriptionServiceImpl extends ServiceImpl<DescriptionMapper, Descr
                                     sheet1.setIp(cell.getStringCellValue());
                                     break;
                                 case 4:
-                                    sheet1.setPort(Integer.valueOf(cell.getStringCellValue()));
+                                    if (StringUtil.isNotEmpty(cell.getStringCellValue())) {
+                                        sheet1.setPort(Integer.valueOf(cell.getStringCellValue()));
+                                    }
                                     break;
                                 case 5:
                                     sheet1.setProperty(cell.getStringCellValue());
@@ -217,15 +219,11 @@ public class DescriptionServiceImpl extends ServiceImpl<DescriptionMapper, Descr
 
     private Sheet1 getDescriptionAndtTranslation(Sheet1 sheet1) {
         String screenshot = sheet1.getScreenshot();
-        // 先处理 screenshot
-        if (screenshot.contains("\\")){
-            screenshot = screenshot.substring(screenshot.indexOf('\\')+1, screenshot.lastIndexOf('.'));
-            if (screenshot.contains("_")) {
-                screenshot = screenshot.substring(0, screenshot.lastIndexOf('_'));
-            }
 
+
+        if (screenshot.contains(".")) {
+            screenshot = screenshot.substring(0, screenshot.lastIndexOf('.'));
             System.out.println(screenshot);
-
             // Description url = descriptionMapper.selectOne(new QueryWrapper<Description>().like("url", screenshot));
             // Description url = descriptionMapper.selectOne(new QueryWrapper<Description>().like("url", screenshot));
             List<Description> results = descriptionMapper.selectList(new QueryWrapper<Description>().like("url", screenshot));
@@ -234,16 +232,52 @@ public class DescriptionServiceImpl extends ServiceImpl<DescriptionMapper, Descr
                 if (collect.size() > 1) {
                     System.out.println("主页和about页面采集信息不一致"+collect);
                     //还是获取主页的介绍作为description 不要拼，优先拿about
-                    Description description = descriptionMapper.selectOne(new QueryWrapper<Description>().like("url", screenshot).notLike("url", "about"));
+                    // Description description = descriptionMapper.selectOne(new QueryWrapper<Description>().like("url", screenshot).notLike("url", "about"));
+                    List<Description> descriptions = descriptionMapper.selectList(new QueryWrapper<Description>().like("url", screenshot).notLike("url", "about"));
+                    Description description = descriptions.get(0);
                     if (description!=null && StringUtil.isNotEmpty(description.getDescription())) {
                         sheet1.setDescription(description.getDescription());
+                        sheet1.setTranslation(en2ch(description.getDescription()));
                     }
                 }else {
-                    sheet1.setDescription(collect.stream().collect(Collectors.toList()).get(0));
-                }
 
-            }
+                    sheet1.setDescription(collect.stream().collect(Collectors.toList()).get(0));
+                    sheet1.setTranslation(en2ch(collect.stream().collect(Collectors.toList()).get(0)));
+                }
         }
+
+
+
+        }
+        // 先处理 screenshot
+        // if (screenshot.contains("\\")){
+        //     screenshot = screenshot.substring(screenshot.indexOf('\\')+1, screenshot.lastIndexOf('.'));
+        //     if (screenshot.contains("_")) {
+        //         screenshot = screenshot.substring(0, screenshot.lastIndexOf('_'));
+        //     }
+        //
+        //     System.out.println(screenshot);
+        //
+        //     // Description url = descriptionMapper.selectOne(new QueryWrapper<Description>().like("url", screenshot));
+        //     // Description url = descriptionMapper.selectOne(new QueryWrapper<Description>().like("url", screenshot));
+        //     List<Description> results = descriptionMapper.selectList(new QueryWrapper<Description>().like("url", screenshot));
+        //     if (results != null && results.size()>0) {
+        //         Set<String> collect = results.stream().map(description -> description.getDescription()).collect(Collectors.toSet());
+        //         if (collect.size() > 1) {
+        //             System.out.println("主页和about页面采集信息不一致"+collect);
+        //             //还是获取主页的介绍作为description 不要拼，优先拿about
+        //             // Description description = descriptionMapper.selectOne(new QueryWrapper<Description>().like("url", screenshot).notLike("url", "about"));
+        //             List<Description> descriptions = descriptionMapper.selectList(new QueryWrapper<Description>().like("url", screenshot).notLike("url", "about"));
+        //             Description description = descriptions.get(0);
+        //             if (description!=null && StringUtil.isNotEmpty(description.getDescription())) {
+        //                 sheet1.setDescription(description.getDescription());
+        //             }
+        //         }else {
+        //             sheet1.setDescription(collect.stream().collect(Collectors.toList()).get(0));
+        //         }
+        //
+        //     }
+        // }
         return sheet1;
     }
 

@@ -28,7 +28,8 @@ public class TestController {
 
     @RequestMapping("insert")
     public void insertMysql(String s) {
-        descriptionService.insert("C:\\Users\\W\\Documents\\WeChat Files\\wxid_dd2l39sslfud22\\FileStorage\\File\\2022-04\\747v0.2\\747v0.2.xlsx");
+        // descriptionService.insert("C:\\Users\\W\\Documents\\WeChat Files\\wxid_dd2l39sslfud22\\FileStorage\\File\\2022-04\\747v0.2\\747v0.2.xlsx");
+        descriptionService.insert("C:\\Users\\W\\Documents\\WeChat Files\\wxid_dd2l39sslfud22\\FileStorage\\File\\2022-05\\pcs(2)\\IP使用者分析报告-PulseSecure-SSL-VPN-20211119-V1.xlsx");
         // new MySQLExcelUtil().importFromExcelToMySQL("C:\\Users\\W\\Documents\\WeChat Files\\wxid_dd2l39sslfud22\\FileStorage\\File\\2022-04\\747v0.2\\747v0.2.xlsx");
 
     }
